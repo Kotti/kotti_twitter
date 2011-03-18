@@ -22,7 +22,7 @@ def render_profile_widget(context, request, name=''):
         prefix += name + '.'
     variables = PROFILE_WIDGET_DEFAULTS.copy()
     variables.update(extract_from_settings(prefix))
-    return render('profile_widget.pt', variables)
+    return render('templates/profile_widget.pt', variables)
 
 def includeme(config, where=RenderRightSlot): # pragma: no cover
     register(where, None, render_profile_widget)
