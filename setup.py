@@ -5,7 +5,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.rst')).read()
 
 setup(name='kotti_twitter',
-      version='0.2',
+      version='0.3',
       description="Add twitter widgets to your Kotti site",
       long_description=README,
       classifiers=[
