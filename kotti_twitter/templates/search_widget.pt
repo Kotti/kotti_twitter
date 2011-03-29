@@ -2,9 +2,11 @@
 <script>
 new TWTR.Widget({
   version: 2,
-  type: 'profile',
-  rpp: 4,
-  interval: 6000,
+  type: 'search',
+  search: '${search}',
+  interval: ${interval},
+  title: '${title}',
+  subject: '${subject}',
   width: '${width}',
   height: '${height}',
   theme: {
@@ -24,8 +26,9 @@ new TWTR.Widget({
     live: ${live},
     hashtags: true,
     timestamp: true,
-    avatars: false,
-    behavior: 'all'
+    avatars: true,
+    toptweets: true,
+    behavior: 'default'
   }
-}).render().setUser('${user}').start();
+}).render().start();
 </script>
