@@ -1,6 +1,6 @@
 from kotti.tests import UnitTestBase
-
 from kotti import get_settings
+
 from kotti_twitter import render_profile_widget
 from kotti_twitter import render_search_widget
 
