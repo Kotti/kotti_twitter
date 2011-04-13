@@ -25,6 +25,8 @@ other variables::
   kotti_twitter.profile_widget.loop = true
   kotti_twitter.profile_widget.tweets_links = #00ff00
 
+Note that these settings have to be in your ``[app:Kotti]`` section.
+
 Setting up a search widget
 ==========================
 
