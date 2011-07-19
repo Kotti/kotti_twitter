@@ -34,7 +34,7 @@ def render_profile_widget(context, request, name=''):
         prefix += name + '.'
     variables = PROFILE_WIDGET_DEFAULTS.copy()
     variables.update(extract_from_settings(prefix))
-    return render('templates/profile_widget.pt', variables)
+    return render('templates/profile_widget.pt', variables, request)
 
 def render_search_widget(context, request, name=''):
     prefix = 'kotti_twitter.search_widget.'
@@ -42,7 +42,7 @@ def render_search_widget(context, request, name=''):
         prefix += name + '.'
     variables = SEARCH_WIDGET_DEFAULTS.copy()
     variables.update(extract_from_settings(prefix))
-    return render('templates/search_widget.pt', variables)
+    return render('templates/search_widget.pt', variables, request)
 
 def include_profile_widget(config, where=RenderRightSlot): # pragma: no cover
     register(where, None, render_profile_widget)
