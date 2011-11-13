@@ -13,7 +13,7 @@ tests_require = [
     ]
 
 setup(name='kotti_twitter',
-      version='0.4',
+      version='0.5',
       description="Add twitter widgets to your Kotti site",
       long_description=README,
       classifiers=[
