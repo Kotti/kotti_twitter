@@ -2,7 +2,10 @@ import os
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, 'README.rst')).read()
+try:
+    README = open(os.path.join(here, 'README.rst')).read()
+except IOError:
+    README = ''
 
 tests_require = [
     'pytest-cov',
@@ -29,5 +32,5 @@ setup(name='kotti_twitter',
       packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
-      install_requires=['Kotti'] + tests_require,
+      install_requires=['Kotti>=0.2.4'] + tests_require,
       )
