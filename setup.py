@@ -4,6 +4,11 @@ from setuptools import setup, find_packages
 here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.rst')).read()
 
+tests_require = [
+    'pytest-cov',
+    'pytest',
+    ]
+
 setup(name='kotti_twitter',
       version='0.4',
       description="Add twitter widgets to your Kotti site",
@@ -24,6 +29,5 @@ setup(name='kotti_twitter',
       packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
-      install_requires=['Kotti'],
-      tests_require=['nose', 'coverage'],
+      install_requires=['Kotti'] + tests_require,
       )
