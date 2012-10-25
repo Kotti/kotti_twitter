@@ -1,9 +1,5 @@
-from pyramid.renderers import render
-
 from kotti.util import extract_from_settings
-from kotti.views.slots import register
-from kotti.views.slots import RenderRightSlot
-from kotti.views.slots import RenderLeftSlot
+from kotti.views.slots import assign_slot
 
 PROFILE_WIDGET_DEFAULTS = {
     'user': 'pylons',
@@ -34,7 +30,7 @@ def render_profile_widget(context, request, name=''):
         prefix += name + '.'
     variables = PROFILE_WIDGET_DEFAULTS.copy()
     variables.update(extract_from_settings(prefix))
-    return render('templates/profile_widget.pt', variables, request)
+    return variables
 
 def render_search_widget(context, request, name=''):
     prefix = 'kotti_twitter.search_widget.'
@@ -42,16 +38,22 @@ def render_search_widget(context, request, name=''):
         prefix += name + '.'
     variables = SEARCH_WIDGET_DEFAULTS.copy()
     variables.update(extract_from_settings(prefix))
-    return render('templates/search_widget.pt', variables, request)
+    return variables
 
-def include_profile_widget(config, where=RenderRightSlot): # pragma: no cover
-    register(where, None, render_profile_widget)
+def include_profile_widget(config, where='right'): # pragma: no cover
+    config.add_view(render_profile_widget,
+                    name='twitter-profile',
+                    renderer='templates/profile_widget.pt')
+    assign_slot('twitter-profile', where)
 
 def include_profile_widget_left(config): # pragma: no cover
-    include_profile_widget(config, RenderLeftSlot)
+    include_profile_widget(config, 'left')
 
-def include_search_widget(config, where=RenderRightSlot): # pragma: no cover
-    register(where, None, render_search_widget)
+def include_search_widget(config, where='right'): # pragma: no cover
+    config.add_view(render_search_widget,
+                    name='twitter-search',
+                    renderer='templates/search_widget.pt')
+    assign_slot('twitter-search', where)
 
 def include_search_widget_left(config): # pragma: no cover
-    include_search_widget(config, RenderLeftSlot)
+    include_search_widget(config, 'left')
