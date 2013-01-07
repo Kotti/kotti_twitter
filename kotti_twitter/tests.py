@@ -1,37 +1,38 @@
 from pyramid.threadlocal import get_current_registry
-from kotti.tests import UnitTestBase
+from kotti.testing import UnitTestBase
 
 from kotti_twitter import render_profile_widget
 from kotti_twitter import render_search_widget
 
+
 def settings():
     return get_current_registry().settings
 
+
 class TestProfileWidget(UnitTestBase):
     def test_render(self):
-        self.assert_(render_profile_widget(None, None).startswith('<script'))
+        assert u'tweets_background' in render_profile_widget(None, None)
 
     def test_render_settings(self):
-        html = render_profile_widget(None, None)
-        self.assert_(u'dnouri' not in html)
+        result = render_profile_widget(None, None)
+        assert result['user'] == u'pylons'
         settings()['kotti_twitter.profile_widget.user'] = 'dnouri'
-        html = render_profile_widget(None, None)
-        self.assert_(u'dnouri' in html)
+        result = render_profile_widget(None, None)
+        assert result['user'] == u'dnouri'
 
     def test_render_settings_with_name(self):
-        html = render_profile_widget(None, None, name='mywidget')
-        self.assert_(u'dnouri' not in html)
-        settings()['kotti_twitter.profile_widget.mywidget.user'] = 'dnouri' 
-        html = render_profile_widget(None, None, name='mywidget')
-        self.assert_(u'dnouri' in html)
+        result = render_profile_widget(None, None, name='mywidget')
+        assert result['user'] == u'pylons'
+        settings()['kotti_twitter.profile_widget.mywidget.user'] = 'dnouri'
+        result = render_profile_widget(None, None, name='mywidget')
+        assert result['user'] == u'dnouri'
+
 
 class TestSearchWidget(UnitTestBase):
-    def test_render(self):
-        self.assert_(render_search_widget(None, None).startswith('<script'))
 
     def test_render_settings_with_name(self):
-        html = render_search_widget(None, None, name='mywidget')
-        self.assert_(u'dnouri' not in html)
-        settings()['kotti_twitter.search_widget.mywidget.search'] = 'dnouri' 
-        html = render_search_widget(None, None, name='mywidget')
-        self.assert_(u'dnouri' in html)
+        result = render_search_widget(None, None, name='mywidget')
+        assert result['search'] == u'#pylons #pyramid'
+        settings()['kotti_twitter.search_widget.mywidget.search'] = 'dnouri'
+        result = render_search_widget(None, None, name='mywidget')
+        assert result['search'] == u'dnouri'
