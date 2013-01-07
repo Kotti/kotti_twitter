@@ -24,6 +24,7 @@ SEARCH_WIDGET_DEFAULTS.update({
     'live': 'true',
     })
 
+
 def render_profile_widget(context, request, name=''):
     prefix = 'kotti_twitter.profile_widget.'
     if name:
@@ -31,6 +32,7 @@ def render_profile_widget(context, request, name=''):
     variables = PROFILE_WIDGET_DEFAULTS.copy()
     variables.update(extract_from_settings(prefix))
     return variables
+
 
 def render_search_widget(context, request, name=''):
     prefix = 'kotti_twitter.search_widget.'
@@ -40,20 +42,24 @@ def render_search_widget(context, request, name=''):
     variables.update(extract_from_settings(prefix))
     return variables
 
-def include_profile_widget(config, where='right'): # pragma: no cover
+
+def include_profile_widget(config, where='right'):  # pragma: no cover
     config.add_view(render_profile_widget,
                     name='twitter-profile',
                     renderer='templates/profile_widget.pt')
     assign_slot('twitter-profile', where)
 
-def include_profile_widget_left(config): # pragma: no cover
+
+def include_profile_widget_left(config):  # pragma: no cover
     include_profile_widget(config, 'left')
 
-def include_search_widget(config, where='right'): # pragma: no cover
+
+def include_search_widget(config, where='right'):  # pragma: no cover
     config.add_view(render_search_widget,
                     name='twitter-search',
                     renderer='templates/search_widget.pt')
     assign_slot('twitter-search', where)
 
-def include_search_widget_left(config): # pragma: no cover
+
+def include_search_widget_left(config):  # pragma: no cover
     include_search_widget(config, 'left')
